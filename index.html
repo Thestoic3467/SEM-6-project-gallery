@@ -256,7 +256,7 @@ margin-top: 10px;
             padding: 0;
         }
 
-        style.txt * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -323,6 +323,55 @@ margin-top: 10px;
         .gallery .image-container .image:hover img {
             transform: scale(1.4);
         }
+
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            flex: 1;
+        }
+
+        .card-text {
+            margin-top: auto;
+            /* Push the district and date to the bottom */
+        }
+
+        .card-text p {
+            margin-bottom: 5px;
+            /* Add some spacing between district and date */
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 5px;
+            margin: 0px;
+            width: 340px;
+            /* Adjust width as needed */
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 2px;
+        }
+
+        .card .description {
+            font-size: 16px;
+            line-height: 1.5;
+            /* Adjust line height as needed */
+            overflow: hidden;
+            max-height: 90px;
+            /* Set initial max height */
+            transition: max-height 0.3s ease;
+        }
+
+        .card:hover .description {
+            max-height: 600px;
+            /* Set max height to accommodate more lines */
+        }
     </style>
 </head>
 
@@ -388,9 +437,9 @@ margin-top: 10px;
     </div>
 
     <nav id="navbar">
-        <a href="#" class="active">Home</a>
+        <a href="#">Home</a>
         <a href="#">Poshan Calculator</a>
-        <a href="#">Gallery</a>
+        <a href="#" class="active">Gallery</a>
         <a href="#">News</a>
         <a href="#">Community</a>
         <a href="#">Training</a>
@@ -402,6 +451,13 @@ margin-top: 10px;
     <div class="container my-3">
         <div class="row">
             <div class="col-md-8 offset-md-2">
+                <h2 class="text-center mb-4">Anganwadi Events Gallery</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="districtSelect">Choose District</label>
@@ -410,6 +466,21 @@ margin-top: 10px;
                         <option value="all">All Districts</option>
                         <option value="Mumbai">Mumbai</option>
                         <option value="Pune">Pune</option>
+                        <option value="Ahmednagar">Ahmednagar</option>
+                        <option value="Akola">Akola</option>
+                        <option value="Amravati">Amravati</option>
+                        <option value="Aurangabad">Aurangabad</option>
+                        <option value="Beed">Beed</option>
+                        <option value="Bhandara">Bhandara</option>
+                        <option value="Buldhana">Buldhana</option>
+                        <option value="Chandrapur">Chandrapur</option>
+                        <option value="Dhule">Dhule</option>
+                        <option value="Gadchiroli">Gadchiroli</option>
+                        <option value="Gondia">Gondia</option>
+                        <option value="Hingoli">Hingoli</option>
+                        <option value="Jalgaon">Jalgaon</option>
+                        <option value="Jalna">Jalna</option>
+                        <option value="Kolhapur">Kolhapur</option>
                         <!-- Add more options for other districts -->
                     </select>
                 </div>
@@ -433,6 +504,62 @@ margin-top: 10px;
 
     <script>
         $(document).ready(function () {
+            // Object to store image information
+            var images = {
+                'Mumbai': [
+                    { description: "Learning Together", imageUrl: 'https://csrbox.org/full_stories_img/1660274737IMG-20220715-WA0007.jpg', date: ' May 12, 2023' },
+
+
+                ],
+                'Pune': [
+                    { description: '', imageUrl: 'https://static.toiimg.com/thumb/msid-105741355,width-1070,height-580,imgsize-239588,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg', date: 'July 20, 2023' },
+                    { description: "Empowering Mothers and Children: Unveiling Government Initiatives through Anganwadi Services", imageUrl: 'https://assets.thehansindia.com/h-upload/2020/08/31/1600x960_995388-anganwadi.jpg', date: ' May 29, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'October 3, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: ' December 7, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: '29-03-2024' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'September 15, 2023' },
+                    // Add more images for Pune
+                ],
+                'Ahmednagar': [
+                    { description: 'Students engaging in group activities to enhance collaborative skills', imageUrl: 'https://w.ndtvimg.com/sites/3/2023/04/25173059/anganwadi-centre-delhi.jpg', date: 'June 5, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'October 3, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: ' December 7, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: '29-03-2024' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'September 15, 2023' },
+                ],
+                'Akola': [
+                    { description: "Anganwadi Sevika Inspiring Young Minds: A Vibrant Canvas of Learning", imageUrl: 'https://indiaeducationdiary.in/wp-content/uploads/2020/07/UN0157904.jpg', date: ' May 12, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'October 3, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: ' December 7, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: '29-03-2024' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'September 15, 2023' },
+                ],
+                'Beed': [
+                    { description: 'Cityscape of Pune', imageUrl: 'https://static.toiimg.com/thumb/msid-105741355,width-1070,height-580,imgsize-239588,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg', date: 'July 20, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'October 3, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: ' December 7, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: '29-03-2024' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'September 15, 2023' },
+                ],
+                'Amravati': [
+                    { description: 'Cityscape of Pune', imageUrl: 'https://static.toiimg.com/thumb/msid-105741355,width-1070,height-580,imgsize-239588,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg', date: 'July 20, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'October 3, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: ' December 7, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'August 8, 2023' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: '29-03-2024' },
+                    { description: 'Pune University', imageUrl: 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg', date: 'September 15, 2023' },
+                ],
+                // Add more districts here
+            };
+
             $('#districtSelect').change(function () {
                 var selectedDistrict = $(this).val();
                 filterImages(selectedDistrict);
@@ -442,35 +569,34 @@ margin-top: 10px;
                 $('#imageContainer').empty(); // Clear previous images
 
                 if (district === 'all') {
-                    addImages('Mumbai', 'Beautiful View of Mumbai', 'https://media.istockphoto.com/id/539018660/photo/taj-mahal-hotel-and-gateway-of-india.jpg?s=612x612&w=0&k=20&c=L1LJVrYMS8kj2rJKlQMcUR88vYoAZeWbYIGkcTo6QV0=');
-                    addImages('Mumbai', 'Mumbai Skyline', 'https://cdn.britannica.com/26/84526-050-45452C37/Gateway-monument-India-entrance-Mumbai-Harbour-coast.jpg');
-                    addImages('Pune', 'Cityscape of Pune', 'https://www.shutterstock.com/image-photo/pune-india-june-16-2019-260nw-1426024703.jpg');
-                    addImages('Pune', 'Pune University', 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg');
-                    // Add more images with their respective districts and descriptions
+                    $.each(images, function (district, imagesArray) {
+                        imagesArray.forEach(function (image) {
+                            addImage(district, image);
+                        });
+                    });
                 } else {
-                    if (district === 'Mumbai') {
-                        addImages('Mumbai', 'Beautiful View of Mumbai', 'https://media.istockphoto.com/id/539018660/photo/taj-mahal-hotel-and-gateway-of-india.jpg?s=612x612&w=0&k=20&c=L1LJVrYMS8kj2rJKlQMcUR88vYoAZeWbYIGkcTo6QV0=');
-                        addImages('Mumbai', 'Mumbai Skyline', 'https://cdn.britannica.com/26/84526-050-45452C37/Gateway-monument-India-entrance-Mumbai-Harbour-coast.jpg');
-                    } else if (district === 'Pune') {
-                        addImages('Pune', 'Cityscape of Pune', 'https://www.shutterstock.com/image-photo/pune-india-june-16-2019-260nw-1426024703.jpg');
-                        addImages('Pune', 'Pune University', 'https://www.shutterstock.com/image-photo/01-september-2022-pune-maharashtra-600nw-2196708929.jpg');
-                    }
-                    // Add more conditions for other districts
+                    images[district].forEach(function (image) {
+                        addImage(district, image);
+                    });
                 }
             }
 
-            function addImages(district, description, imageUrl) {
+            function addImage(district, image) {
                 var imageHtml = `
-              <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3">
                 <div class="card">
-                  <img src="${imageUrl}" class="card-img-top" alt="${description}">
-                  <div class="card-body">
-                    <h5 class="card-title">${description}</h5>
-                    <p class="card-text">${district}</p>
-                  </div>
+                    <img src="${image.imageUrl}" class="card-img-top" alt="${image.description}">
+                    <div class="card-body">
+                        <h5 class="card-title">${image.description}</h5>
+                        <div class="card-text">
+                            <p>District: ${district}</p>
+                            <p class="card-text">Date: ${image.date}</p>
+                            <!-- Add more details here if needed -->
+                        </div>
+                    </div>
                 </div>
-              </div>
-            `;
+            </div>
+        `;
                 $('#imageContainer').append(imageHtml);
             }
         });
